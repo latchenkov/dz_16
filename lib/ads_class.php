@@ -76,8 +76,15 @@ class Ads {
         
     }
     
+       
     public function getId() {
       return $this->id;
+    }
+    
+    public function setId() {
+        global $db;
+        $id=$db->selectCell('SELECT MAX(id) FROM ads ');
+        $this->id=$id;
     }
     
     public function getDate() {
@@ -136,6 +143,7 @@ class AdsStore{
             die('Нельзя использовать этот метод в конструкторе классов');
         }
         $this->ads[$ad->getId()]=$ad;
+        return self::$instance;
     }
     
     public function getAllAdsFromDb() { // Извлекаем все объявления из БД
@@ -184,6 +192,21 @@ class AdsStore{
         }
         $smarty->assign('ads_rows',$row);
         return self::$instance;
+    }
+    
+    public function prepareForOutTableRowAjax() {
+        global $smarty;
+        $row='';
+        foreach ($this->ads as $value) {
+            $smarty->assign('ad',$value);
+                if ($value instanceof privateAd){
+                    $row.=$smarty->fetch('table_row_private.tpl');
+                }
+                elseif ($value instanceof corporateAd) {
+                    $row.=$smarty->fetch('table_row_corporate.tpl');
+                }
+        }
+        return $row;
     }
     
     public function display() {

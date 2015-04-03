@@ -1,6 +1,6 @@
 <h2 class="sub-header" >Все объявления</h2>
     <div class="table-responsive" style="height: 600px; overflow:auto; ">
-        <table class="table">
+        <table id="main" class="table">
            <thead>
                 <tr>
                     <th>Дата публикации</th>
