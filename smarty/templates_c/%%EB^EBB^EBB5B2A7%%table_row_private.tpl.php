@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.28, created on 2015-03-17 11:59:22
+<?php /* Smarty version 2.6.28, created on 2015-04-04 16:04:44
          compiled from table_row_private.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'date_format', 'table_row_private.tpl', 2, false),array('modifier', 'string_format', 'table_row_private.tpl', 5, false),)), $this); ?>
@@ -8,8 +8,7 @@ smarty_core_load_plugins(array('plugins' => array(array('modifier', 'date_format
 </td>
     <td><?php echo $this->_tpl_vars['ad']->getTitle(); ?>
 </td>
-    <td><a class="btn btn-info btn-xs " title="Показать объявление" href="?action=show&id=<?php echo $this->_tpl_vars['ad']->getId(); ?>
-"><strong>?</strong></a></td>
+    <td><a class="show btn btn-info btn-xs " title="Показать объявление" ><strong>?</strong></a></td>
     <td><?php echo ((is_array($_tmp=$this->_tpl_vars['ad']->getPrice())) ? $this->_run_mod_handler('string_format', true, $_tmp, "%.2f") : smarty_modifier_string_format($_tmp, "%.2f")); ?>
  руб.</td>
     <td><?php echo $this->_tpl_vars['ad']->getSeller_name(); ?>

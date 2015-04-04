@@ -6,23 +6,8 @@ require_once ($project_root.'/lib/connection.php'); // Подключаем БД
 
 require ($project_root.'/lib/ads_class.php'); // Подключаем файл с функциями
 
-// Создаем либо редактируем объявление
-//if (isset($_POST['seller_name']) && isset($_POST['description'])) { // если была нажата кнопка
-//    $post_ad = Ads::trimPOST($_POST);
-//        $ad=new Ads($post_ad);
-//        $ad->saveAd();
-//header("Location: index.php");
-//exit;
-//}
-
-
 $instance = AdsStore::getInstance();
 $instance->getAllAdsFromDb();
 
-// Показ конкретного объявления
-if (isset($_GET['action']) && $_GET['action']=='show'){
-    $edit_id=(int)$_GET['id'];
-    $instance->prepareForOutSingleAd($edit_id);
-}
 
 $instance -> prepareForOutDataForm() -> prepareForOutTableRow() -> display();

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.28, created on 2015-04-03 14:42:22
+<?php /* Smarty version 2.6.28, created on 2015-04-04 16:04:44
          compiled from table.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'default', 'table.tpl', 18, false),)), $this); ?>
@@ -15,7 +15,7 @@ smarty_core_load_plugins(array('plugins' => array(array('modifier', 'default', '
                     <th></th>
                 </tr>
             </thead>
-            <tbody >
+            <tbody id="tbody">
                    <?php echo $this->_tpl_vars['ads_rows']; ?>
 
             </tbody>

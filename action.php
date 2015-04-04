@@ -11,12 +11,11 @@ switch ($_GET['action']) {
     case 'save':
         if ($_POST['seller_name'] && $_POST['description']) { // если была нажата кнопка
         $post_ad = Ads::trimPOST($_POST);
-        //$ad=new Ads($post_ad);
-        switch ($post_ad['type']) {
-                case 0 : // Частное объявление
+            switch ($post_ad['type']) {
+                case 'private' : // Частное объявление
                     $ad = new privateAd($post_ad);
                 break;
-                case 1 : // Объявление компании
+                case 'corporate' : // Объявление компании
                     $ad = new corporateAd($post_ad);
                 break;
             }
@@ -28,8 +27,12 @@ switch ($_GET['action']) {
         $result['id']=$ad->getId();
         $result['row']=AdsStore::getInstance()->addAds($ad)->prepareForOutTableRowAjax();
         echo json_encode ($result);
-        
         }
+        break;
+    case 'show':
+        $edit_id=(int)$_GET['id'];
+        $result=AdsStore::getInstance()->getSingleAdFromDb($edit_id)->prepareForOutSingleAd($edit_id);
+        echo json_encode ($result);
         break;
     default:
         break;

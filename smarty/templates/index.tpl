@@ -5,14 +5,14 @@
 
 
 <div class="col-sm-4 col-sm-offset-1 " style="padding: 30px;">
-<form id="form" class="form-horizontal"  method="post" >
-    {if isset($id)}<input type="hidden"  name="id" value="{$id}">{/if}
-    {if isset($date)}<input type="hidden"  name="date" value="{$date}">{/if}
+<form id="form" class="form-horizontal"  method="post" onsubmit="return false;">
+    <input type="hidden" class="clear_form" name="id" value="">
+    <input type="hidden" class="clear_form" name="date" value="">
 	<div class="form-group">
             <div class="col-sm-offset-5 col-sm-7">
                 <div class="radio">
                     <label>
-                        {html_radios class="set_form" name="type" options=$radio_id selected=$type|default:0 separator="</br>"}
+                        {html_radios class="set_form" name="type" options=$radio_id selected=$type|default:'private' separator="</br>"}
                     </label>
                 </div>
             </div>
@@ -90,8 +90,11 @@
         </div>
                         
         <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-7">
-                <button id="submit" type="button" class="btn btn-primary">{if !isset($id)}Подать объявление{else}Сохранить изменения{/if}</button>
+            <div class="col-sm-offset-2 col-sm-5">
+                <button id="submit" type="submit" class="btn btn-success" style="width: 180px"><strong>Подать объявление</strong></button>
+            </div>
+            <div class=" col-sm-5">
+                <button id="reset" type="reset" class="btn btn-warning" style="width: 150px"><strong>Очистить форму</strong></button>
             </div>
         </div>
 </form>

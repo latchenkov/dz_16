@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.28, created on 2015-04-03 14:06:25
+<?php /* Smarty version 2.6.28, created on 2015-04-04 17:44:20
          compiled from index.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'html_radios', 'index.tpl', 15, false),array('function', 'html_options', 'index.tpl', 53, false),array('modifier', 'default', 'index.tpl', 15, false),array('modifier', 'replace', 'index.tpl', 36, false),)), $this); ?>
@@ -13,16 +13,14 @@ unset($_smarty_tpl_vars);
 
 
 <div class="col-sm-4 col-sm-offset-1 " style="padding: 30px;">
-<form id="form" class="form-horizontal"  method="post" >
-    <?php if (isset ( $this->_tpl_vars['id'] )): ?><input type="hidden"  name="id" value="<?php echo $this->_tpl_vars['id']; ?>
-"><?php endif; ?>
-    <?php if (isset ( $this->_tpl_vars['date'] )): ?><input type="hidden"  name="date" value="<?php echo $this->_tpl_vars['date']; ?>
-"><?php endif; ?>
+<form id="form" class="form-horizontal"  method="post" onsubmit="return false;">
+    <input type="hidden" class="clear_form" name="id" value="">
+    <input type="hidden" class="clear_form" name="date" value="">
 	<div class="form-group">
             <div class="col-sm-offset-5 col-sm-7">
                 <div class="radio">
                     <label>
-                        <?php echo smarty_function_html_radios(array('class' => 'set_form','name' => 'type','options' => $this->_tpl_vars['radio_id'],'selected' => ((is_array($_tmp=@$this->_tpl_vars['type'])) ? $this->_run_mod_handler('default', true, $_tmp, 0) : smarty_modifier_default($_tmp, 0)),'separator' => "</br>"), $this);?>
+                        <?php echo smarty_function_html_radios(array('class' => 'set_form','name' => 'type','options' => $this->_tpl_vars['radio_id'],'selected' => ((is_array($_tmp=@$this->_tpl_vars['type'])) ? $this->_run_mod_handler('default', true, $_tmp, 'private') : smarty_modifier_default($_tmp, 'private')),'separator' => "</br>"), $this);?>
 
                     </label>
                 </div>
@@ -113,8 +111,11 @@ unset($_smarty_tpl_vars);
         </div>
                         
         <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-7">
-                <button id="submit" type="button" class="btn btn-primary"><?php if (! isset ( $this->_tpl_vars['id'] )): ?>Подать объявление<?php else: ?>Сохранить изменения<?php endif; ?></button>
+            <div class="col-sm-offset-2 col-sm-5">
+                <button id="submit" type="submit" class="btn btn-success" style="width: 180px"><strong>Подать объявление</strong></button>
+            </div>
+            <div class=" col-sm-5">
+                <button id="reset" type="reset" class="btn btn-warning" style="width: 150px"><strong>Очистить форму</strong></button>
             </div>
         </div>
 </form>

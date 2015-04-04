@@ -15,10 +15,10 @@ class Ads {
     protected $category_id;
         
     public function __construct(array $ad) {
-        if(isset($ad['id'])){
+        if($ad['id']){
             $this->id=$ad['id'];
         }
-        if(isset($ad['date'])){
+        if($ad['date']){
             $this->date=$ad['date'];
         }
         else {
@@ -44,7 +44,7 @@ class Ads {
     
     public static function trimPOST (array $post){
         $data = array();
-            $int = array('id', 'price', 'type', 'allow_mails', 'location_id', 'category_id');
+            $int = array('id', 'price', 'allow_mails', 'location_id', 'category_id');
             if (!isset($post['allow_mails'])){$post['allow_mails']=0;}
         foreach ($post as $key => $value) {
             if (in_array($key, $int)){
@@ -67,7 +67,7 @@ class Ads {
             $result['status']='error';
             $result['message'] = "Error text";
         }
-      if(!$db->select('SELECT id FROM ads ')){
+      if(!$db->selectCell('SELECT COUNT(id) FROM ads ')){
             $result['status']='empty';
             $result['warning']='<strong>Внимание!</strong> В базе данных нет объявлений.';
         }
@@ -113,7 +113,7 @@ class privateAd extends Ads {
                
         public function __construct(array $ad) {
             parent::__construct($ad);
-                $this->type = 0;
+                $this->type = 'private';
         }
     
 }
@@ -122,7 +122,7 @@ class corporateAd extends Ads {
                
         public function __construct(array $ad) {
             parent::__construct($ad);
-                $this->type = 1;
+                $this->type = 'corporate';
         }
     
 } 
@@ -158,10 +158,10 @@ class AdsStore{
         }
         foreach ($all as $value){
             switch ($value['type']) {
-                case 0 : // Частное объявление
+                case 'private' : // Частное объявление
                     $ad = new privateAd($value);
                 break;
-                case 1 : // Объявление компании
+                case 'corporate' : // Объявление компании
                     $ad = new corporateAd($value);
                 break;
             }
@@ -170,12 +170,30 @@ class AdsStore{
         return self::$instance;
     }
     
-    public function prepareForOutSingleAd($id) { // Готовим к выводу выбранное объявление
+    public function getSingleAdFromDb($id) { 
+        global $db;
         global $smarty;
+        $single = $db->selectRow("SELECT * FROM ads WHERE id = ?d", $id);
+            switch ($single['type']) {
+                case 'private' : // Частное объявление
+                    $ad = new privateAd($single);
+                break;
+                case 'corporate' : // Объявление компании
+                    $ad = new corporateAd($single);
+                break;
+            }
+        self::addAds($ad); //помещаем объекты в хранилище
+        
+        return self::$instance;
+    }
+    
+    public function prepareForOutSingleAd($id) { // Готовим к выводу выбранное объявление
         $ad = $this->ads[$id];
         foreach ($ad->getObjectParam() as $key => $val){
-            $smarty->assign($key, htmlspecialchars($val)); // htmlspecialchars - ????
+            $result[$key]=$val; 
         }    
+    return $result;
+        
     }
     
     public function prepareForOutTableRow() {
@@ -220,7 +238,7 @@ class AdsStore{
         $smarty->assign('location', self::getLocationList());
         $smarty->assign('category', self::getCategorylist());
         $smarty->assign('label', self::getLabelList());
-        $smarty->assign('radio_id', array ( 0 => 'Частное лицо', 1 => 'Компания'));
+        $smarty->assign('radio_id', array ( 'private' => 'Частное лицо', 'corporate' => 'Компания'));
     
         return self::$instance;
     }
