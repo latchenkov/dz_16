@@ -7,15 +7,16 @@ function connectError(){
 }
 
 // Код обработчика ошибок SQL.
-function databaseErrorHandler($message, $info)
-{
+function databaseErrorHandler($message, $info){
     // Если использовалась @, ничего не делать.
     if (!error_reporting()) return;
     // Выводим подробную информацию об ошибке.
-    echo "SQL Error: $message<br><pre>"; 
-    print_r($info);
-    echo "</pre>";
-    exit();
+   //echo "SQL Error: $message<br><pre>"; 
+   // print_r($info);
+    //echo "</pre>";
+    header("Refresh:5; url=install.php");
+    exit("Ошибка в работе БД. Через 5 сек. Вы будете перенаправлены на страницу INSTALL.</br>
+         Если автоматического перенаправления не происходит, нажмите <a href='install.php'>здесь</a>.");
 }
 
 // Код логгера

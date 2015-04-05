@@ -165,7 +165,14 @@ class AdsStore{
                     $ad = new corporateAd($value);
                 break;
             }
-        self::addAds($ad); //помещаем объекты в хранилище
+            if (isset($ad)){
+                self::addAds($ad); //помещаем объекты в хранилище
+            }
+            else{
+                header("Refresh:5; url=install.php");
+                    exit("Конфигурация БД не соответствует скрипту. Через 5 сек. Вы будете перенаправлены на страницу INSTALL.</br>
+                         Если автоматического перенаправления не происходит, нажмите <a href='install.php'>здесь</a>.");
+            }
         }
         return self::$instance;
     }

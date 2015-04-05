@@ -58,7 +58,7 @@
             <label for="inputCategory" class="col-sm-5 control-label">Категория</label>
                 <div class="col-sm-7">
                    <select class="form-control set_form" title="Выберите категорию объявления" name="category_id"  required>
-                        <option value="clear">-- Выберите категорию --</option>
+                        <option value="">-- Выберите категорию --</option>
                             {foreach from=$label item=item key=key}
                                 <optgroup label="{$item}">
                                     {html_options options=$category.$key selected=$category_id|default:''}
@@ -90,10 +90,10 @@
         </div>
                         
         <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-5">
+            <div class="col-sm-5">
                 <button id="submit" type="submit" class="btn btn-success" style="width: 180px"><strong>Подать объявление</strong></button>
             </div>
-            <div class=" col-sm-5">
+            <div class="col-sm-offset-2 col-sm-5">
                 <button id="reset" type="reset" class="btn btn-warning" style="width: 150px"><strong>Очистить форму</strong></button>
             </div>
         </div>

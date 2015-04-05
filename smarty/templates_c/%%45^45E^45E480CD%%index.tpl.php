@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.28, created on 2015-04-04 17:44:20
+<?php /* Smarty version 2.6.28, created on 2015-04-05 13:00:33
          compiled from index.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'html_radios', 'index.tpl', 15, false),array('function', 'html_options', 'index.tpl', 53, false),array('modifier', 'default', 'index.tpl', 15, false),array('modifier', 'replace', 'index.tpl', 36, false),)), $this); ?>
@@ -72,7 +72,7 @@ unset($_smarty_tpl_vars);
             <label for="inputCategory" class="col-sm-5 control-label">Категория</label>
                 <div class="col-sm-7">
                    <select class="form-control set_form" title="Выберите категорию объявления" name="category_id"  required>
-                        <option value="clear">-- Выберите категорию --</option>
+                        <option value="">-- Выберите категорию --</option>
                             <?php $_from = $this->_tpl_vars['label']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
     foreach ($_from as $this->_tpl_vars['key'] => $this->_tpl_vars['item']):
 ?>
@@ -111,10 +111,10 @@ unset($_smarty_tpl_vars);
         </div>
                         
         <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-5">
+            <div class="col-sm-5">
                 <button id="submit" type="submit" class="btn btn-success" style="width: 180px"><strong>Подать объявление</strong></button>
             </div>
-            <div class=" col-sm-5">
+            <div class="col-sm-offset-2 col-sm-5">
                 <button id="reset" type="reset" class="btn btn-warning" style="width: 150px"><strong>Очистить форму</strong></button>
             </div>
         </div>

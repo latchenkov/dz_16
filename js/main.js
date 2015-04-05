@@ -8,12 +8,16 @@ $(function() {
             function(response){
                 tr.fadeOut('normal',function(){
                     $(this).remove();
+                    if($('#form [name=id]').val()==id){
+                        $('#reset').click();
+                    }
                 if(response.status == 'empty'){
                     $('#informer_text').html(response.warning);
                     $('#informer').fadeIn('slow');
                 }
                 });
             });
+    return false;
     });
 // Сохранение объявления
     $('#submit').on('click', function(event) {
@@ -21,9 +25,10 @@ $(function() {
             $.post('action.php?action=save', form_data,
                 function(response){
                     // Очистка формы
-                    $('#form .clear_form').each(function(){$(this).val('');});
-                    $('#form input[name=price]').val(0);
-                    $('#form input.set_form, #form select.set_form').val(['0', '641780', 'clear', 'private']);
+                    //$('#form .clear_form').each(function(){$(this).val('');});
+                    //$('#form input[name=price]').val(0);
+                    //$('#form input.set_form, #form select.set_form').val(['0', '641780', 'clear', 'private']);
+                    $('#reset').click();
                     $('#submit').html('<strong>Подать объявление</strong>');
                     // Изменение или добавление в таблицу        
                     var id_add = response.id;
@@ -54,5 +59,6 @@ $(function() {
                 $('#submit').html('<strong>Сохранить объявление</strong>');
             });
     });
+return false;
 });
 
